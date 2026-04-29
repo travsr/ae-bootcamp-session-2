@@ -10,8 +10,8 @@
 > frontend@0.1.0 test
 > react-scripts test --coverage --watchAll=false
 
-PASS src/__tests__/App.test.js (11.312 s)
-PASS src/__tests__/task-card.test.js
+PASS src/__tests__/App.test.js (12.491 s)
+PASS src/__tests__/task-card.test.js (5.006 s)
 PASS src/__tests__/add-task-dialog.test.js
 PASS src/__tests__/filter-sort-bar.test.js
 ---------------------|---------|----------|---------|---------|-------------------
@@ -32,7 +32,7 @@ All files            |   93.14 |     78.7 |   85.71 |   95.86 |
 Test Suites: 4 passed, 4 total
 Tests:       47 passed, 47 total
 Snapshots:   0 total
-Time:        21.023 s
+Time:        23.43 s
 Ran all test suites.
 
 > copilot-bootcamp@1.0.0 test:backend
@@ -47,78 +47,78 @@ Ran all test suites.
 
       at Object.log (src/app.js:37:9)
 
-[0mPOST /api/todos [32m201[0m 1.777 ms - 192[0m
-[0mPOST /api/todos [32m201[0m 0.385 ms - 192[0m
-[0mGET /api/todos [32m200[0m 0.522 ms - 387[0m
-[0mPOST /api/todos [32m201[0m 0.688 ms - 193[0m
-[0mPOST /api/todos [32m201[0m 0.570 ms - 191[0m
-[0mGET /api/todos?priority=high [32m200[0m 0.392 ms - 195[0m
-[0mPOST /api/todos [32m201[0m 0.270 ms - 195[0m
-[0mPATCH /api/todos/5/complete [32m200[0m 0.665 ms - 194[0m
-[0mPOST /api/todos [32m201[0m 0.314 ms - 195[0m
-[0mGET /api/todos?completed=false [32m200[0m 0.370 ms - 197[0m
-[0mPOST /api/todos [32m201[0m 0.427 ms - 197[0m
-[0mPOST /api/todos [32m201[0m 0.350 ms - 201[0m
-[0mGET /api/todos?category=Work [32m200[0m 0.457 ms - 199[0m
-[0mPOST /api/todos [32m201[0m 0.384 ms - 215[0m
-[0mPOST /api/todos [32m201[0m 0.375 ms - 200[0m
-[0mGET /api/todos?tag=review [32m200[0m 0.366 ms - 217[0m
-[0mPOST /api/todos [32m201[0m 0.482 ms - 205[0m
-[0mPOST /api/todos [32m201[0m 0.250 ms - 207[0m
-[0mGET /api/todos?sortBy=due_date [32m200[0m 0.330 ms - 415[0m
-[0mPOST /api/todos [32m201[0m 0.281 ms - 194[0m
-[0mPOST /api/todos [32m201[0m 0.230 ms - 196[0m
-[0mPOST /api/todos [32m201[0m 0.245 ms - 197[0m
-[0mGET /api/todos?sortBy=priority [32m200[0m 0.299 ms - 591[0m
-[0mGET /api/todos?priority=critical [33m400[0m 0.134 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.243 ms - 226[0m
+[0mPOST /api/todos [32m201[0m 2.210 ms - 192[0m
+[0mPOST /api/todos [32m201[0m 0.469 ms - 192[0m
+[0mGET /api/todos [32m200[0m 0.686 ms - 387[0m
+[0mPOST /api/todos [32m201[0m 0.664 ms - 193[0m
+[0mPOST /api/todos [32m201[0m 0.591 ms - 191[0m
+[0mGET /api/todos?priority=high [32m200[0m 0.421 ms - 195[0m
+[0mPOST /api/todos [32m201[0m 0.262 ms - 195[0m
+[0mPATCH /api/todos/5/complete [32m200[0m 0.645 ms - 194[0m
+[0mPOST /api/todos [32m201[0m 0.335 ms - 195[0m
+[0mGET /api/todos?completed=false [32m200[0m 0.377 ms - 197[0m
+[0mPOST /api/todos [32m201[0m 0.349 ms - 197[0m
+[0mPOST /api/todos [32m201[0m 0.246 ms - 201[0m
+[0mGET /api/todos?category=Work [32m200[0m 0.222 ms - 199[0m
+[0mPOST /api/todos [32m201[0m 0.304 ms - 215[0m
+[0mPOST /api/todos [32m201[0m 0.284 ms - 200[0m
+[0mGET /api/todos?tag=review [32m200[0m 0.329 ms - 217[0m
+[0mPOST /api/todos [32m201[0m 0.329 ms - 205[0m
+[0mPOST /api/todos [32m201[0m 0.278 ms - 207[0m
+[0mGET /api/todos?sortBy=due_date [32m200[0m 0.279 ms - 415[0m
+[0mPOST /api/todos [32m201[0m 0.413 ms - 194[0m
+[0mPOST /api/todos [32m201[0m 0.360 ms - 196[0m
+[0mPOST /api/todos [32m201[0m 0.338 ms - 197[0m
+[0mGET /api/todos?sortBy=priority [32m200[0m 0.351 ms - 591[0m
+[0mGET /api/todos?priority=critical [33m400[0m 0.196 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.312 ms - 226[0m
 [0mPOST /api/todos [33m400[0m 0.137 ms - 34[0m
-[0mPOST /api/todos [33m400[0m 0.129 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.203 ms - 200[0m
-[0mPUT /api/todos/17 [32m200[0m 0.514 ms - 197[0m
-[0mPUT /api/todos/999999 [33m404[0m 0.167 ms - 26[0m
-[0mPOST /api/todos [32m201[0m 0.211 ms - 203[0m
-[0mPUT /api/todos/18 [33m400[0m 0.269 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.210 ms - 203[0m
+[0mPOST /api/todos [33m400[0m 0.140 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.317 ms - 200[0m
+[0mPUT /api/todos/17 [32m200[0m 0.598 ms - 197[0m
+[0mPUT /api/todos/999999 [33m404[0m 0.178 ms - 26[0m
+[0mPOST /api/todos [32m201[0m 0.213 ms - 203[0m
+[0mPUT /api/todos/18 [33m400[0m 0.288 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.204 ms - 203[0m
 [0mPUT /api/todos/19 [33m400[0m 0.226 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.213 ms - 196[0m
-[0mPATCH /api/todos/20/complete [32m200[0m 0.305 ms - 195[0m
-[0mPOST /api/todos [32m201[0m 0.203 ms - 198[0m
-[0mPATCH /api/todos/21/complete [32m200[0m 0.242 ms - 197[0m
-[0mPATCH /api/todos/21/complete [32m200[0m 0.247 ms - 198[0m
-[0mPATCH /api/todos/999999/complete [33m404[0m 0.162 ms - 26[0m
-[0mPOST /api/todos [32m201[0m 0.219 ms - 196[0m
-[0mDELETE /api/todos/22 [32m200[0m 0.308 ms - 47[0m
-[0mDELETE /api/todos/22 [33m404[0m 0.165 ms - 26[0m
-[0mDELETE /api/todos/999999 [33m404[0m 0.212 ms - 26[0m
-[0mDELETE /api/todos/abc [33m400[0m 0.127 ms - 37[0m
+[0mPOST /api/todos [32m201[0m 0.311 ms - 196[0m
+[0mPATCH /api/todos/20/complete [32m200[0m 0.358 ms - 195[0m
+[0mPOST /api/todos [32m201[0m 0.208 ms - 198[0m
+[0mPATCH /api/todos/21/complete [32m200[0m 0.293 ms - 197[0m
+[0mPATCH /api/todos/21/complete [32m200[0m 0.229 ms - 198[0m
+[0mPATCH /api/todos/999999/complete [33m404[0m 0.164 ms - 26[0m
+[0mPOST /api/todos [32m201[0m 0.268 ms - 196[0m
+[0mDELETE /api/todos/22 [32m200[0m 0.385 ms - 47[0m
+[0mDELETE /api/todos/22 [33m404[0m 0.230 ms - 26[0m
+[0mDELETE /api/todos/999999 [33m404[0m 0.271 ms - 26[0m
+[0mDELETE /api/todos/abc [33m400[0m 0.137 ms - 37[0m
 PASS __tests__/integration/todos-api.test.js
   Todos API Integration
     GET /api/todos
-      ✓ returns all todos (71 ms)
+      ✓ returns all todos (81 ms)
       ✓ filters by priority (79 ms)
-      ✓ filters by completion status (43 ms)
-      ✓ filters by category (67 ms)
-      ✓ filters by tag (51 ms)
-      ✓ sorts by due_date (53 ms)
-      ✓ sorts by priority (high before medium before low) (31 ms)
+      ✓ filters by completion status (40 ms)
+      ✓ filters by category (36 ms)
+      ✓ filters by tag (27 ms)
+      ✓ sorts by due_date (33 ms)
+      ✓ sorts by priority (high before medium before low) (46 ms)
       ✓ returns 400 for invalid priority filter (8 ms)
     POST /api/todos
-      ✓ creates a todo with all fields (9 ms)
-      ✓ returns 400 when title is missing (8 ms)
+      ✓ creates a todo with all fields (10 ms)
+      ✓ returns 400 when title is missing (9 ms)
       ✓ returns 400 for invalid priority (9 ms)
     PUT /api/todos/:id
-      ✓ updates a todo (14 ms)
+      ✓ updates a todo (17 ms)
       ✓ returns 404 for unknown id (10 ms)
-      ✓ returns 400 when title is cleared (18 ms)
+      ✓ returns 400 when title is cleared (16 ms)
       ✓ returns 400 for invalid priority (15 ms)
     PATCH /api/todos/:id/complete
-      ✓ toggles completion from false to true (16 ms)
-      ✓ toggles completion from true to false (21 ms)
+      ✓ toggles completion from false to true (19 ms)
+      ✓ toggles completion from true to false (23 ms)
       ✓ returns 404 for unknown id (7 ms)
     DELETE /api/todos/:id
-      ✓ deletes a todo (22 ms)
-      ✓ returns 404 for unknown id (11 ms)
+      ✓ deletes a todo (23 ms)
+      ✓ returns 404 for unknown id (10 ms)
       ✓ returns 400 for invalid id (7 ms)
 
   console.log
@@ -126,54 +126,54 @@ PASS __tests__/integration/todos-api.test.js
 
       at Object.log (src/app.js:37:9)
 
-[0mGET / [32m200[0m 0.766 ms - 53[0m
-[0mPOST /api/todos [32m201[0m 0.867 ms - 197[0m
-[0mGET /api/todos [32m200[0m 0.738 ms - 199[0m
-[0mPOST /api/todos [32m201[0m 2.360 ms - 201[0m
-[0mGET /api/todos [32m200[0m 0.537 ms - 401[0m
-[0mPOST /api/todos [32m201[0m 0.376 ms - 232[0m
-[0mPOST /api/todos [33m400[0m 0.300 ms - 34[0m
-[0mPOST /api/todos [33m400[0m 0.204 ms - 34[0m
-[0mPOST /api/todos [33m400[0m 0.183 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.404 ms - 195[0m
-[0mPUT /api/todos/4 [32m200[0m 0.318 ms - 234[0m
-[0mPUT /api/todos/999999 [33m404[0m 0.206 ms - 26[0m
-[0mPUT /api/todos/abc [33m400[0m 0.124 ms - 37[0m
-[0mPOST /api/todos [32m201[0m 0.297 ms - 200[0m
-[0mPUT /api/todos/5 [33m400[0m 0.256 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.207 ms - 197[0m
-[0mPATCH /api/todos/6/complete [32m200[0m 0.272 ms - 196[0m
-[0mPATCH /api/todos/6/complete [32m200[0m 0.261 ms - 197[0m
-[0mPATCH /api/todos/999999/complete [33m404[0m 0.158 ms - 26[0m
-[0mPATCH /api/todos/abc/complete [33m400[0m 0.123 ms - 37[0m
-[0mPOST /api/todos [32m201[0m 0.269 ms - 195[0m
-[0mDELETE /api/todos/7 [32m200[0m 0.276 ms - 46[0m
-[0mDELETE /api/todos/999999 [33m404[0m 0.217 ms - 26[0m
-[0mDELETE /api/todos/abc [33m400[0m 0.126 ms - 37[0m
+[0mGET / [32m200[0m 0.760 ms - 53[0m
+[0mPOST /api/todos [32m201[0m 0.513 ms - 197[0m
+[0mGET /api/todos [32m200[0m 0.340 ms - 199[0m
+[0mPOST /api/todos [32m201[0m 0.355 ms - 201[0m
+[0mGET /api/todos [32m200[0m 0.362 ms - 401[0m
+[0mPOST /api/todos [32m201[0m 0.239 ms - 232[0m
+[0mPOST /api/todos [33m400[0m 0.224 ms - 34[0m
+[0mPOST /api/todos [33m400[0m 0.231 ms - 34[0m
+[0mPOST /api/todos [33m400[0m 0.241 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.368 ms - 195[0m
+[0mPUT /api/todos/4 [32m200[0m 0.560 ms - 234[0m
+[0mPUT /api/todos/999999 [33m404[0m 0.212 ms - 26[0m
+[0mPUT /api/todos/abc [33m400[0m 0.128 ms - 37[0m
+[0mPOST /api/todos [32m201[0m 0.288 ms - 200[0m
+[0mPUT /api/todos/5 [33m400[0m 0.178 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.252 ms - 197[0m
+[0mPATCH /api/todos/6/complete [32m200[0m 0.277 ms - 196[0m
+[0mPATCH /api/todos/6/complete [32m200[0m 0.286 ms - 197[0m
+[0mPATCH /api/todos/999999/complete [33m404[0m 0.162 ms - 26[0m
+[0mPATCH /api/todos/abc/complete [33m400[0m 0.167 ms - 37[0m
+[0mPOST /api/todos [32m201[0m 0.205 ms - 195[0m
+[0mDELETE /api/todos/7 [32m200[0m 0.213 ms - 46[0m
+[0mDELETE /api/todos/999999 [33m404[0m 0.246 ms - 26[0m
+[0mDELETE /api/todos/abc [33m400[0m 0.199 ms - 37[0m
 PASS __tests__/app.test.js
   GET /
-    ✓ should return health check status (24 ms)
+    ✓ should return health check status (21 ms)
   API Endpoints
     GET /api/todos
-      ✓ should return an array of todos (81 ms)
-      ✓ should return todos with expected shape (80 ms)
+      ✓ should return an array of todos (24 ms)
+      ✓ should return todos with expected shape (21 ms)
     POST /api/todos
-      ✓ should create a todo with all fields (37 ms)
-      ✓ should return 400 when title is missing (21 ms)
-      ✓ should return 400 when title is empty (11 ms)
-      ✓ should return 400 for invalid priority (17 ms)
+      ✓ should create a todo with all fields (12 ms)
+      ✓ should return 400 when title is missing (11 ms)
+      ✓ should return 400 when title is empty (10 ms)
+      ✓ should return 400 for invalid priority (22 ms)
     PUT /api/todos/:id
-      ✓ should update all fields of an existing todo (19 ms)
-      ✓ should return 404 for unknown id (9 ms)
+      ✓ should update all fields of an existing todo (23 ms)
+      ✓ should return 404 for unknown id (10 ms)
       ✓ should return 400 for non-numeric id (7 ms)
-      ✓ should return 400 for invalid priority (18 ms)
+      ✓ should return 400 for invalid priority (17 ms)
     PATCH /api/todos/:id/complete
-      ✓ should toggle completed status (19 ms)
-      ✓ should return 404 for unknown id (8 ms)
-      ✓ should return 400 for non-numeric id (7 ms)
+      ✓ should toggle completed status (22 ms)
+      ✓ should return 404 for unknown id (9 ms)
+      ✓ should return 400 for non-numeric id (8 ms)
     DELETE /api/todos/:id
-      ✓ should delete an existing todo (20 ms)
-      ✓ should return 404 when todo does not exist (13 ms)
+      ✓ should delete an existing todo (15 ms)
+      ✓ should return 404 when todo does not exist (8 ms)
       ✓ should return 400 for invalid id (7 ms)
 
 ----------|---------|----------|---------|---------|---------------------------------------
@@ -185,7 +185,7 @@ All files |   89.71 |    87.95 |     100 |   90.38 |
 Test Suites: 2 passed, 2 total
 Tests:       38 passed, 38 total
 Snapshots:   0 total
-Time:        1.718 s, estimated 2 s
+Time:        1.837 s, estimated 2 s
 Ran all test suites.
 
 > copilot-bootcamp@1.0.0 test:integration
@@ -200,79 +200,79 @@ Ran all test suites.
 
       at Object.log (src/app.js:37:9)
 
-[0mPOST /api/todos [32m201[0m 1.729 ms - 192[0m
-[0mPOST /api/todos [32m201[0m 0.568 ms - 192[0m
-[0mGET /api/todos [32m200[0m 0.679 ms - 387[0m
-[0mPOST /api/todos [32m201[0m 0.514 ms - 193[0m
-[0mPOST /api/todos [32m201[0m 0.408 ms - 191[0m
-[0mGET /api/todos?priority=high [32m200[0m 0.246 ms - 195[0m
-[0mPOST /api/todos [32m201[0m 0.259 ms - 195[0m
-[0mPATCH /api/todos/5/complete [32m200[0m 0.621 ms - 194[0m
-[0mPOST /api/todos [32m201[0m 0.296 ms - 195[0m
-[0mGET /api/todos?completed=false [32m200[0m 0.288 ms - 197[0m
-[0mPOST /api/todos [32m201[0m 0.536 ms - 197[0m
-[0mPOST /api/todos [32m201[0m 0.395 ms - 201[0m
-[0mGET /api/todos?category=Work [32m200[0m 0.384 ms - 199[0m
-[0mPOST /api/todos [32m201[0m 0.264 ms - 215[0m
-[0mPOST /api/todos [32m201[0m 0.232 ms - 200[0m
-[0mGET /api/todos?tag=review [32m200[0m 0.347 ms - 217[0m
-[0mPOST /api/todos [32m201[0m 0.322 ms - 205[0m
-[0mPOST /api/todos [32m201[0m 0.250 ms - 207[0m
-[0mGET /api/todos?sortBy=due_date [32m200[0m 0.323 ms - 415[0m
-[0mPOST /api/todos [32m201[0m 0.352 ms - 194[0m
-[0mPOST /api/todos [32m201[0m 0.228 ms - 196[0m
-[0mPOST /api/todos [32m201[0m 0.262 ms - 197[0m
-[0mGET /api/todos?sortBy=priority [32m200[0m 0.299 ms - 591[0m
-[0mGET /api/todos?priority=critical [33m400[0m 0.146 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.350 ms - 226[0m
-[0mPOST /api/todos [33m400[0m 0.151 ms - 34[0m
-[0mPOST /api/todos [33m400[0m 0.138 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.242 ms - 200[0m
-[0mPUT /api/todos/17 [32m200[0m 0.518 ms - 197[0m
-[0mPUT /api/todos/999999 [33m404[0m 0.215 ms - 26[0m
-[0mPOST /api/todos [32m201[0m 0.228 ms - 203[0m
-[0mPUT /api/todos/18 [33m400[0m 0.230 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.211 ms - 203[0m
-[0mPUT /api/todos/19 [33m400[0m 0.177 ms - 34[0m
-[0mPOST /api/todos [32m201[0m 0.206 ms - 196[0m
-[0mPATCH /api/todos/20/complete [32m200[0m 0.286 ms - 195[0m
-[0mPOST /api/todos [32m201[0m 0.221 ms - 198[0m
-[0mPATCH /api/todos/21/complete [32m200[0m 0.243 ms - 197[0m
-[0mPATCH /api/todos/21/complete [32m200[0m 0.218 ms - 198[0m
-[0mPATCH /api/todos/999999/complete [33m404[0m 0.167 ms - 26[0m
-[0mPOST /api/todos [32m201[0m 0.208 ms - 196[0m
-[0mDELETE /api/todos/22 [32m200[0m 0.329 ms - 47[0m
-[0mDELETE /api/todos/22 [33m404[0m 0.180 ms - 26[0m
-[0mDELETE /api/todos/999999 [33m404[0m 0.247 ms - 26[0m
-[0mDELETE /api/todos/abc [33m400[0m 0.133 ms - 37[0m
+[0mPOST /api/todos [32m201[0m 2.030 ms - 192[0m
+[0mPOST /api/todos [32m201[0m 0.490 ms - 192[0m
+[0mGET /api/todos [32m200[0m 0.797 ms - 387[0m
+[0mPOST /api/todos [32m201[0m 0.465 ms - 193[0m
+[0mPOST /api/todos [32m201[0m 0.332 ms - 191[0m
+[0mGET /api/todos?priority=high [32m200[0m 0.358 ms - 195[0m
+[0mPOST /api/todos [32m201[0m 0.313 ms - 195[0m
+[0mPATCH /api/todos/5/complete [32m200[0m 0.712 ms - 194[0m
+[0mPOST /api/todos [32m201[0m 0.332 ms - 195[0m
+[0mGET /api/todos?completed=false [32m200[0m 0.357 ms - 197[0m
+[0mPOST /api/todos [32m201[0m 0.418 ms - 197[0m
+[0mPOST /api/todos [32m201[0m 0.332 ms - 201[0m
+[0mGET /api/todos?category=Work [32m200[0m 0.238 ms - 199[0m
+[0mPOST /api/todos [32m201[0m 0.323 ms - 215[0m
+[0mPOST /api/todos [32m201[0m 0.362 ms - 200[0m
+[0mGET /api/todos?tag=review [32m200[0m 0.343 ms - 217[0m
+[0mPOST /api/todos [32m201[0m 0.269 ms - 205[0m
+[0mPOST /api/todos [32m201[0m 0.344 ms - 207[0m
+[0mGET /api/todos?sortBy=due_date [32m200[0m 0.354 ms - 415[0m
+[0mPOST /api/todos [32m201[0m 0.494 ms - 194[0m
+[0mPOST /api/todos [32m201[0m 0.350 ms - 196[0m
+[0mPOST /api/todos [32m201[0m 0.353 ms - 197[0m
+[0mGET /api/todos?sortBy=priority [32m200[0m 0.341 ms - 591[0m
+[0mGET /api/todos?priority=critical [33m400[0m 0.237 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.293 ms - 226[0m
+[0mPOST /api/todos [33m400[0m 0.170 ms - 34[0m
+[0mPOST /api/todos [33m400[0m 0.246 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.315 ms - 200[0m
+[0mPUT /api/todos/17 [32m200[0m 0.545 ms - 197[0m
+[0mPUT /api/todos/999999 [33m404[0m 0.315 ms - 26[0m
+[0mPOST /api/todos [32m201[0m 0.342 ms - 203[0m
+[0mPUT /api/todos/18 [33m400[0m 0.420 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.313 ms - 203[0m
+[0mPUT /api/todos/19 [33m400[0m 0.275 ms - 34[0m
+[0mPOST /api/todos [32m201[0m 0.373 ms - 196[0m
+[0mPATCH /api/todos/20/complete [32m200[0m 0.488 ms - 195[0m
+[0mPOST /api/todos [32m201[0m 0.361 ms - 198[0m
+[0mPATCH /api/todos/21/complete [32m200[0m 0.330 ms - 197[0m
+[0mPATCH /api/todos/21/complete [32m200[0m 0.352 ms - 198[0m
+[0mPATCH /api/todos/999999/complete [33m404[0m 0.274 ms - 26[0m
+[0mPOST /api/todos [32m201[0m 0.303 ms - 196[0m
+[0mDELETE /api/todos/22 [32m200[0m 0.407 ms - 47[0m
+[0mDELETE /api/todos/22 [33m404[0m 0.205 ms - 26[0m
+[0mDELETE /api/todos/999999 [33m404[0m 0.219 ms - 26[0m
+[0mDELETE /api/todos/abc [33m400[0m 0.130 ms - 37[0m
 PASS __tests__/integration/todos-api.test.js
   Todos API Integration
     GET /api/todos
-      ✓ returns all todos (96 ms)
-      ✓ filters by priority (47 ms)
-      ✓ filters by completion status (42 ms)
-      ✓ filters by category (32 ms)
-      ✓ filters by tag (25 ms)
-      ✓ sorts by due_date (32 ms)
-      ✓ sorts by priority (high before medium before low) (29 ms)
-      ✓ returns 400 for invalid priority filter (8 ms)
+      ✓ returns all todos (106 ms)
+      ✓ filters by priority (39 ms)
+      ✓ filters by completion status (44 ms)
+      ✓ filters by category (35 ms)
+      ✓ filters by tag (30 ms)
+      ✓ sorts by due_date (36 ms)
+      ✓ sorts by priority (high before medium before low) (38 ms)
+      ✓ returns 400 for invalid priority filter (9 ms)
     POST /api/todos
-      ✓ creates a todo with all fields (12 ms)
+      ✓ creates a todo with all fields (11 ms)
       ✓ returns 400 when title is missing (9 ms)
-      ✓ returns 400 for invalid priority (9 ms)
-    PUT /api/todos/:id
-      ✓ updates a todo (14 ms)
-      ✓ returns 404 for unknown id (10 ms)
-      ✓ returns 400 when title is cleared (14 ms)
       ✓ returns 400 for invalid priority (13 ms)
+    PUT /api/todos/:id
+      ✓ updates a todo (18 ms)
+      ✓ returns 404 for unknown id (13 ms)
+      ✓ returns 400 when title is cleared (25 ms)
+      ✓ returns 400 for invalid priority (23 ms)
     PATCH /api/todos/:id/complete
-      ✓ toggles completion from false to true (15 ms)
-      ✓ toggles completion from true to false (19 ms)
-      ✓ returns 404 for unknown id (9 ms)
-    DELETE /api/todos/:id
-      ✓ deletes a todo (20 ms)
+      ✓ toggles completion from false to true (26 ms)
+      ✓ toggles completion from true to false (31 ms)
       ✓ returns 404 for unknown id (10 ms)
-      ✓ returns 400 for invalid id (6 ms)
+    DELETE /api/todos/:id
+      ✓ deletes a todo (25 ms)
+      ✓ returns 404 for unknown id (10 ms)
+      ✓ returns 400 for invalid id (8 ms)
 
 ----------|---------|----------|---------|---------|--------------------------------------------------
 File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                
@@ -283,41 +283,26 @@ All files |   86.91 |    83.13 |   88.88 |    87.5 |
 Test Suites: 1 passed, 1 total
 Tests:       21 passed, 21 total
 Snapshots:   0 total
-Time:        1.201 s, estimated 2 s
+Time:        1.238 s, estimated 2 s
 Ran all test suites matching /__tests__\/integration/i.
 
 > copilot-bootcamp@1.0.0 test:e2e
 > npx playwright test
 
+[2m[WebServer] [22mBrowserslist: browsers data (caniuse-lite) is 12 months old. Please run:
+[2m[WebServer] [22m  npx update-browserslist-db@latest
+[2m[WebServer] [22m  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[2m[WebServer] [22m(node:77698) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[2m[WebServer] [22m(Use `node --trace-deprecation ...` to show where the warning was created)
+[2m[WebServer] [22m(node:77698) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
 
 Running 6 tests using 1 worker
 
-  ✓  1 [chromium] › tests/e2e/todo-workflow.spec.js:21:3 › Todo Workflow › 1. creates a new task with all fields (2.3s)
-  ✓  2 [chromium] › tests/e2e/todo-workflow.spec.js:36:3 › Todo Workflow › 2. edits an existing task inline (1.7s)
-  ✓  3 [chromium] › tests/e2e/todo-workflow.spec.js:50:3 › Todo Workflow › 3. marks a task as complete with strikethrough (1.4s)
-  ✓  4 [chromium] › tests/e2e/todo-workflow.spec.js:62:3 › Todo Workflow › 4. deletes a task (1.6s)
-  ✓  5 [chromium] › tests/e2e/todo-workflow.spec.js:71:3 › Todo Workflow › 5. filters tasks by priority (1.6s)
-  ✘  6 [chromium] › tests/e2e/todo-workflow.spec.js:92:3 › Todo Workflow › 6. sorts tasks by due date (1.8s)
+  ✓  1 [chromium] › tests/e2e/todo-workflow.spec.js:21:3 › Todo Workflow › 1. creates a new task with all fields (2.8s)
+  ✓  2 [chromium] › tests/e2e/todo-workflow.spec.js:36:3 › Todo Workflow › 2. edits an existing task inline (1.9s)
+  ✓  3 [chromium] › tests/e2e/todo-workflow.spec.js:50:3 › Todo Workflow › 3. marks a task as complete with strikethrough (1.5s)
+  ✓  4 [chromium] › tests/e2e/todo-workflow.spec.js:62:3 › Todo Workflow › 4. deletes a task (1.8s)
+  ✓  5 [chromium] › tests/e2e/todo-workflow.spec.js:71:3 › Todo Workflow › 5. filters tasks by priority (1.7s)
+  ✓  6 [chromium] › tests/e2e/todo-workflow.spec.js:92:3 › Todo Workflow › 6. sorts tasks by due date (1.8s)
 
-
-  1) [chromium] › tests/e2e/todo-workflow.spec.js:92:3 › Todo Workflow › 6. sorts tasks by due date 
-
-    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-    Expected: [32m2[39m
-    Received: [31m0[39m
-
-      107 |     const cards = todoPage.taskCards();
-      108 |     const count = await cards.count();
-    > 109 |     expect(count).toBe(2);
-          |                   ^
-      110 |
-      111 |     const firstTitle = await cards.nth(0).textContent();
-      112 |     const secondTitle = await cards.nth(1).textContent();
-        at /workspaces/ae-bootcamp-session-2/tests/e2e/todo-workflow.spec.js:109:19
-
-    Error Context: test-results/todo-workflow-Todo-Workflow-6-sorts-tasks-by-due-date-chromium/error-context.md
-
-  1 failed
-    [chromium] › tests/e2e/todo-workflow.spec.js:92:3 › Todo Workflow › 6. sorts tasks by due date ─
-  5 passed (12.5s)
+  6 passed (25.9s)

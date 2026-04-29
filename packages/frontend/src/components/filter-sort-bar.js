@@ -29,7 +29,7 @@ function FilterSortBar({ filters, sortBy, onFilterChange, onSortChange }) {
             label="Category"
             value={filters.category || ''}
             onChange={handleFilterChange('category')}
-            aria-label="Filter by category"
+            SelectDisplayProps={{ 'aria-label': 'Filter by category' }}
           >
             <MenuItem value=""><em>All</em></MenuItem>
             {DEFAULT_CATEGORIES.map((cat) => (
@@ -45,7 +45,7 @@ function FilterSortBar({ filters, sortBy, onFilterChange, onSortChange }) {
             label="Priority"
             value={filters.priority || ''}
             onChange={handleFilterChange('priority')}
-            aria-label="Filter by priority"
+            SelectDisplayProps={{ 'aria-label': 'Filter by priority' }}
           >
             <MenuItem value=""><em>All</em></MenuItem>
             {PRIORITIES.map((p) => (
@@ -67,7 +67,7 @@ function FilterSortBar({ filters, sortBy, onFilterChange, onSortChange }) {
                 completed: val === '' ? undefined : val === 'true',
               });
             }}
-            aria-label="Filter by completion status"
+            SelectDisplayProps={{ 'aria-label': 'Filter by completion status' }}
           >
             <MenuItem value=""><em>All</em></MenuItem>
             <MenuItem value="false">Incomplete</MenuItem>
@@ -82,7 +82,7 @@ function FilterSortBar({ filters, sortBy, onFilterChange, onSortChange }) {
             label="Sort By"
             value={sortBy || 'created_at'}
             onChange={(e) => onSortChange(e.target.value)}
-            aria-label="Sort tasks"
+            SelectDisplayProps={{ 'aria-label': 'Sort tasks' }}
           >
             {SORT_OPTIONS.map((opt) => (
               <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>

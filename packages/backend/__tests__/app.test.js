@@ -5,6 +5,14 @@ afterAll(() => {
   if (db) db.close();
 });
 
+describe('GET /', () => {
+  it('should return health check status', async () => {
+    const response = await request(app).get('/');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('status', 'ok');
+  });
+});
+
 const createTodo = async (overrides = {}) => {
   const payload = { title: 'Test Task', priority: 'medium', ...overrides };
   const response = await request(app)
@@ -122,6 +130,25 @@ describe('API Endpoints', () => {
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('error', 'Todo not found');
     });
+
+    it('should return 400 for non-numeric id', async () => {
+      const response = await request(app)
+        .put('/api/todos/abc')
+        .send({ title: 'Test' })
+        .set('Accept', 'application/json');
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Valid todo ID is required');
+    });
+
+    it('should return 400 for invalid priority', async () => {
+      const todo = await createTodo({ title: 'Task to update' });
+      const response = await request(app)
+        .put(`/api/todos/${todo.id}`)
+        .send({ title: 'Updated', priority: 'critical' })
+        .set('Accept', 'application/json');
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Invalid priority value');
+    });
   });
 
   describe('PATCH /api/todos/:id/complete', () => {
@@ -143,6 +170,12 @@ describe('API Endpoints', () => {
       expect(response.status).toBe(404);
       expect(response.body).toHaveProperty('error', 'Todo not found');
     });
+
+    it('should return 400 for non-numeric id', async () => {
+      const response = await request(app).patch('/api/todos/abc/complete');
+      expect(response.status).toBe(400);
+      expect(response.body).toHaveProperty('error', 'Valid todo ID is required');
+    });
   });
 
   describe('DELETE /api/todos/:id', () => {
@@ -163,29 +196,6 @@ describe('API Endpoints', () => {
       const response = await request(app).delete('/api/todos/abc');
       expect(response.status).toBe(400);
       expect(response.body).toHaveProperty('error', 'Valid todo ID is required');
-    });
-  });
-});
-
-      const deleteResponse = await request(app).delete(`/api/items/${item.id}`);
-      expect(deleteResponse.status).toBe(200);
-      expect(deleteResponse.body).toEqual({ message: 'Item deleted successfully', id: item.id });
-
-      const deleteAgain = await request(app).delete(`/api/items/${item.id}`);
-      expect(deleteAgain.status).toBe(404);
-      expect(deleteAgain.body).toHaveProperty('error', 'Item not found');
-    });
-
-    it('should return 404 when item does not exist', async () => {
-      const response = await request(app).delete('/api/items/999999');
-      expect(response.status).toBe(404);
-      expect(response.body).toHaveProperty('error', 'Item not found');
-    });
-
-    it('should return 400 for invalid id', async () => {
-      const response = await request(app).delete('/api/items/abc');
-      expect(response.status).toBe(400);
-      expect(response.body).toHaveProperty('error', 'Valid item ID is required');
     });
   });
 });

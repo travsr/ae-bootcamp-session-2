@@ -1,5 +1,5 @@
 import React, { act } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
@@ -111,7 +111,7 @@ describe('App Component', () => {
     });
     await waitFor(() => screen.getByText('First Task'));
 
-    const addButton = screen.getByRole('button', { name: /add task/i });
+    const addButton = screen.getByRole('button', { name: /add new task/i });
     await userEvent.click(addButton);
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -124,7 +124,7 @@ describe('App Component', () => {
     });
     await waitFor(() => screen.getByText('First Task'));
 
-    await userEvent.click(screen.getByRole('button', { name: /add task/i }));
+    await userEvent.click(screen.getByRole('button', { name: /add new task/i }));
     expect(screen.getByRole('dialog')).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole('button', { name: /cancel/i }));
@@ -146,91 +146,195 @@ describe('App Component', () => {
       expect(screen.getByRole('alert')).toBeInTheDocument();
     });
   });
-});
 
-      render(<App />);
-    });
-    expect(screen.getByText('React Frontend with Node Backend')).toBeInTheDocument();
-    expect(screen.getByText('Connected to in-memory database')).toBeInTheDocument();
-  });
-
-  test('loads and displays items', async () => {
-    await act(async () => {
-      render(<App />);
-    });
-    
-    // Initially shows loading state
-    expect(screen.getByText('Loading data...')).toBeInTheDocument();
-    
-    // Wait for items to load
-    await waitFor(() => {
-      expect(screen.getByText('Test Item 1')).toBeInTheDocument();
-      expect(screen.getByText('Test Item 2')).toBeInTheDocument();
-    });
-  });
-
-  test('adds a new item', async () => {
-    const user = userEvent.setup();
-    
-    await act(async () => {
-      render(<App />);
-    });
-    
-    // Wait for items to load
-    await waitFor(() => {
-      expect(screen.queryByText('Loading data...')).not.toBeInTheDocument();
-    });
-    
-    // Fill in the form and submit
-    const input = screen.getByPlaceholderText('Enter item name');
-    await act(async () => {
-      await user.type(input, 'New Test Item');
-    });
-    
-    const submitButton = screen.getByText('Add Item');
-    await act(async () => {
-      await user.click(submitButton);
-    });
-    
-    // Check that the new item appears
-    await waitFor(() => {
-      expect(screen.getByText('New Test Item')).toBeInTheDocument();
-    });
-  });
-
-  test('handles API error', async () => {
-    // Override the default handler to simulate an error
+  test('closes error alert when close button is clicked', async () => {
     server.use(
-      rest.get('/api/items', (req, res, ctx) => {
-        return res(ctx.status(500));
-      })
+      rest.get('/api/todos', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
     );
-    
     await act(async () => {
       render(<App />);
     });
-    
-    // Wait for error message
+    await waitFor(() => screen.getByRole('alert'));
+
+    await userEvent.click(screen.getByRole('button', { name: /close/i }));
     await waitFor(() => {
-      expect(screen.getByText(/Failed to fetch data/)).toBeInTheDocument();
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
   });
 
-  test('shows empty state when no items', async () => {
-    // Override the default handler to return empty array
-    server.use(
-      rest.get('/api/items', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json([]));
-      })
-    );
-    
+  test('creates a new task via dialog and closes the dialog', async () => {
     await act(async () => {
       render(<App />);
     });
-    
-    // Wait for empty state message
+    await waitFor(() => screen.getByText('First Task'));
+
+    await userEvent.click(screen.getByRole('button', { name: /add new task/i }));
+    await userEvent.type(screen.getByLabelText('Task title'), 'My New Task');
+    await userEvent.click(screen.getByRole('button', { name: /add task/i }));
+
     await waitFor(() => {
-      expect(screen.getByText('No items found. Add some!')).toBeInTheDocument();
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  test('shows error when creating task fails', async () => {
+    server.use(
+      rest.post('/api/todos', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
+    );
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    await userEvent.click(screen.getByRole('button', { name: /add new task/i }));
+    await userEvent.type(screen.getByLabelText('Task title'), 'Failing Task');
+    await userEvent.click(screen.getByRole('button', { name: /add task/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByText(/failed to create task/i)).toBeInTheDocument();
+    });
+  });
+
+  test('deletes a task when delete button is clicked', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    const deleteButtons = screen.getAllByRole('button', { name: /delete task/i });
+    await userEvent.click(deleteButtons[0]);
+
+    await waitFor(() => {
+      expect(screen.queryByText('First Task')).not.toBeInTheDocument();
+    });
+  });
+
+  test('shows error when deleting a task fails', async () => {
+    server.use(
+      rest.delete('/api/todos/:id', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
+    );
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    const deleteButtons = screen.getAllByRole('button', { name: /delete task/i });
+    await userEvent.click(deleteButtons[0]);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByText(/failed to delete task/i)).toBeInTheDocument();
+    });
+  });
+
+  test('toggles task completion when checkbox is clicked', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    await userEvent.click(checkboxes[0]);
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('checkbox')[0]).toBeChecked();
+    });
+  });
+
+  test('shows error when toggling task completion fails', async () => {
+    server.use(
+      rest.patch('/api/todos/:id/complete', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
+    );
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    await userEvent.click(checkboxes[0]);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByText(/failed to update task/i)).toBeInTheDocument();
+    });
+  });
+
+  test('updates a task when edit is saved', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    await userEvent.click(screen.getAllByRole('button', { name: /edit task/i })[0]);
+    const titleInput = screen.getByLabelText('Edit task title');
+    await userEvent.clear(titleInput);
+    await userEvent.type(titleInput, 'Updated Task Title');
+    await userEvent.click(screen.getByRole('button', { name: /save task/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('Updated Task Title')).toBeInTheDocument();
+    });
+  });
+
+  test('shows error when updating a task fails', async () => {
+    server.use(
+      rest.put('/api/todos/:id', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
+    );
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    await userEvent.click(screen.getAllByRole('button', { name: /edit task/i })[0]);
+    const titleInput = screen.getByLabelText('Edit task title');
+    await userEvent.clear(titleInput);
+    await userEvent.type(titleInput, 'Updated Task Title');
+    await userEvent.click(screen.getByRole('button', { name: /save task/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+      expect(screen.getByText(/failed to update task/i)).toBeInTheDocument();
+    });
+  });
+
+  test('changes the sort order', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: /^sort by$/i }));
+    const listbox = screen.getByRole('listbox');
+    fireEvent.click(within(listbox).getByText('Due Date'));
+
+    await waitFor(() => {
+      expect(screen.getByText('First Task')).toBeInTheDocument();
+    });
+  });
+
+  test('changes the category filter', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: /^category$/i }));
+    const listbox = screen.getByRole('listbox');
+    fireEvent.click(within(listbox).getByText('Work'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Category: Work')).toBeInTheDocument();
     });
   });
 });

@@ -66,6 +66,7 @@ function App() {
       setDialogOpen(false);
       await fetchTodos();
     } catch (err) {
+      setDialogOpen(false);
       setError('Failed to create task: ' + err.message);
     }
   };

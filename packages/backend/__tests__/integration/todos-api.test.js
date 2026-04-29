@@ -80,6 +80,19 @@ describe('Todos API Integration', () => {
       expect(response.body[1].title).toBe('Later Task');
     });
 
+    it('sorts by priority (high before medium before low)', async () => {
+      await createTodo({ title: 'LowPriTask', priority: 'low' });
+      await createTodo({ title: 'HighPriTask', priority: 'high' });
+      await createTodo({ title: 'MedPriTask', priority: 'medium' });
+
+      const response = await request(app).get('/api/todos?sortBy=priority');
+      expect(response.status).toBe(200);
+
+      const titles = response.body.map((t) => t.title);
+      expect(titles.indexOf('HighPriTask')).toBeLessThan(titles.indexOf('MedPriTask'));
+      expect(titles.indexOf('MedPriTask')).toBeLessThan(titles.indexOf('LowPriTask'));
+    });
+
     it('returns 400 for invalid priority filter', async () => {
       const response = await request(app).get('/api/todos?priority=critical');
       expect(response.status).toBe(400);
@@ -150,6 +163,15 @@ describe('Todos API Integration', () => {
         .put(`/api/todos/${todo.id}`)
         .send({ title: '' });
       expect(response.status).toBe(400);
+    });
+
+    it('returns 400 for invalid priority', async () => {
+      const todo = await createTodo();
+      const response = await request(app)
+        .put(`/api/todos/${todo.id}`)
+        .send({ title: 'Valid Title', priority: 'critical' });
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe('Invalid priority value');
     });
   });
 

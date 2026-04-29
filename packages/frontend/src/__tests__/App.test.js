@@ -5,49 +5,149 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import App from '../App';
 
-// Mock server to intercept API requests
+const SAMPLE_TODOS = [
+  {
+    id: 1,
+    title: 'First Task',
+    description: 'Desc 1',
+    due_date: '2026-12-01',
+    category: 'Work',
+    tags: ['review'],
+    priority: 'high',
+    completed: false,
+    created_at: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 2,
+    title: 'Second Task',
+    description: '',
+    due_date: null,
+    category: 'Personal',
+    tags: [],
+    priority: 'low',
+    completed: true,
+    created_at: '2026-01-02T00:00:00.000Z',
+  },
+];
+
 const server = setupServer(
-  // GET /api/items handler
-  rest.get('/api/items', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json([
-        { id: 1, name: 'Test Item 1', created_at: '2023-01-01T00:00:00.000Z' },
-        { id: 2, name: 'Test Item 2', created_at: '2023-01-02T00:00:00.000Z' },
-      ])
-    );
+  rest.get('/api/todos', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(SAMPLE_TODOS));
   }),
-  
-  // POST /api/items handler
-  rest.post('/api/items', (req, res, ctx) => {
-    const { name } = req.body;
-    
-    if (!name || name.trim() === '') {
-      return res(
-        ctx.status(400),
-        ctx.json({ error: 'Item name is required' })
-      );
+
+  rest.post('/api/todos', (req, res, ctx) => {
+    const { title } = req.body;
+    if (!title || title.trim() === '') {
+      return res(ctx.status(400), ctx.json({ error: 'Task title is required' }));
     }
-    
     return res(
       ctx.status(201),
       ctx.json({
         id: 3,
-        name,
+        title,
+        description: '',
+        due_date: null,
+        category: null,
+        tags: [],
+        priority: 'medium',
+        completed: false,
         created_at: new Date().toISOString(),
-      })
+      }),
     );
-  })
+  }),
+
+  rest.delete('/api/todos/:id', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json({ message: 'Todo deleted successfully', id: Number(req.params.id) }));
+  }),
+
+  rest.patch('/api/todos/:id/complete', (req, res, ctx) => {
+    const id = Number(req.params.id);
+    const todo = SAMPLE_TODOS.find((t) => t.id === id);
+    return res(ctx.status(200), ctx.json({ ...(todo || {}), id, completed: true }));
+  }),
+
+  rest.put('/api/todos/:id', (req, res, ctx) => {
+    const id = Number(req.params.id);
+    return res(ctx.status(200), ctx.json({ ...req.body, id }));
+  }),
 );
 
-// Setup and teardown for the mock server
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe('App Component', () => {
-  test('renders the header', async () => {
+  test('renders the page title', async () => {
     await act(async () => {
+      render(<App />);
+    });
+    expect(screen.getByText('To Do App')).toBeInTheDocument();
+  });
+
+  test('renders tasks loaded from API', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => {
+      expect(screen.getByText('First Task')).toBeInTheDocument();
+      expect(screen.getByText('Second Task')).toBeInTheDocument();
+    });
+  });
+
+  test('completed task title has strikethrough style', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Second Task')).toBeInTheDocument();
+    });
+    const completedTitle = screen.getByText('Second Task');
+    expect(completedTitle).toHaveStyle('text-decoration: line-through');
+  });
+
+  test('opens Add Task dialog when button is clicked', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    const addButton = screen.getByRole('button', { name: /add task/i });
+    await userEvent.click(addButton);
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('Add New Task')).toBeInTheDocument();
+  });
+
+  test('closes dialog on cancel', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => screen.getByText('First Task'));
+
+    await userEvent.click(screen.getByRole('button', { name: /add task/i }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('button', { name: /cancel/i }));
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  test('shows error alert when API fails', async () => {
+    server.use(
+      rest.get('/api/todos', (req, res, ctx) =>
+        res(ctx.status(500), ctx.json({ error: 'Server error' })),
+      ),
+    );
+    await act(async () => {
+      render(<App />);
+    });
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toBeInTheDocument();
+    });
+  });
+});
+
       render(<App />);
     });
     expect(screen.getByText('React Frontend with Node Backend')).toBeInTheDocument();

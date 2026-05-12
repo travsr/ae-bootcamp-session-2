@@ -31,19 +31,6 @@ section {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.add-item-section form {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
 button {
   padding: 8px 16px;
   background-color: #61dafb;
@@ -56,36 +43,6 @@ button {
 
 button:hover {
   background-color: #21a1c9;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-li:last-child {
-  border-bottom: none;
-}
-
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  margin-left: 10px;
-}
-
-.delete-btn:hover {
-  background-color: #d32f2f;
 }
 
 .error {

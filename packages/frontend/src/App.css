@@ -129,3 +129,9 @@ button:hover {
 .play-again:hover {
   background-color: #21a1c9;
 }
+
+.timer {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #282c34;
+}

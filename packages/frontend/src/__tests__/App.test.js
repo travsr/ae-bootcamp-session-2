@@ -7,8 +7,8 @@ jest.mock('../components/SudokuGame', () => () => <div data-testid="sudoku-game"
 describe('App Component', () => {
   test('renders the header', () => {
     render(<App />);
-    expect(screen.getByText('AI Bootcamp Capstone')).toBeInTheDocument();
-    expect(screen.getByText('Your project starts here')).toBeInTheDocument();
+    expect(screen.getByText('Sudoku')).toBeInTheDocument();
+    expect(screen.getByText('Test your logic skills!')).toBeInTheDocument();
   });
 
   test('renders SudokuGame as main content', () => {

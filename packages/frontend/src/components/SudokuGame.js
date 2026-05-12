@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DifficultySelector from './DifficultySelector';
 import SudokuBoard from './SudokuBoard';
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
 
 function SudokuGame() {
   const [difficulty, setDifficulty] = useState(null);
@@ -8,8 +14,16 @@ function SudokuGame() {
   const [puzzle, setPuzzle] = useState(null);
   const [solution, setSolution] = useState(null);
   const [error, setError] = useState(null);
+  const [elapsed, setElapsed] = useState(0);
+
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+    const id = setInterval(() => setElapsed(e => e + 1), 1000);
+    return () => clearInterval(id);
+  }, [gameState]);
 
   async function fetchPuzzle(diff) {
+    setElapsed(0);
     setGameState('loading');
     setError(null);
     try {
@@ -51,7 +65,10 @@ function SudokuGame() {
         <p className="error">{error}</p>
       )}
       {gameState === 'playing' && puzzle && solution && (
-        <SudokuBoard puzzle={puzzle} solution={solution} onComplete={handleComplete} />
+        <>
+          <SudokuBoard puzzle={puzzle} solution={solution} onComplete={handleComplete} />
+          <p className="timer">{formatTime(elapsed)}</p>
+        </>
       )}
       {gameState === 'complete' && (
         <div className="success-message">

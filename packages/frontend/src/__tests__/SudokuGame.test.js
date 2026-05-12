@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import SudokuGame from '../components/SudokuGame';
 
 // Minimal fully-solved puzzle to use in API responses
@@ -129,5 +129,90 @@ describe('SudokuGame Component', () => {
       expect(screen.getByText(/failed to load puzzle/i)).toBeInTheDocument()
     );
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+  });
+});
+
+describe('SudokuGame Timer', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+    jest.resetAllMocks();
+    delete global.fetch;
+  });
+
+  test('timer is not visible on initial render (idle state)', () => {
+    render(<SudokuGame />);
+    expect(screen.queryByText(/^\d+:\d{2}$/)).not.toBeInTheDocument();
+  });
+
+  test('timer shows 0:00 immediately after a puzzle loads successfully', async () => {
+    const { puzzle, solution } = makeSolvedPuzzle();
+    mockFetchSuccess({ puzzle, solution });
+
+    render(<SudokuGame />);
+    fireEvent.click(screen.getByText('Easy'));
+
+    await waitFor(() => expect(screen.getAllByRole('textbox').length).toBe(81));
+    expect(screen.getByText('0:00')).toBeInTheDocument();
+  });
+
+  test('timer increments correctly after time passes', async () => {
+    const { puzzle, solution } = makeSolvedPuzzle();
+    mockFetchSuccess({ puzzle, solution });
+
+    render(<SudokuGame />);
+    fireEvent.click(screen.getByText('Easy'));
+
+    await waitFor(() => expect(screen.getAllByRole('textbox').length).toBe(81));
+    expect(screen.getByText('0:00')).toBeInTheDocument();
+
+    act(() => { jest.advanceTimersByTime(5000); });
+    expect(screen.getByText('0:05')).toBeInTheDocument();
+
+    act(() => { jest.advanceTimersByTime(55000); });
+    expect(screen.getByText('1:00')).toBeInTheDocument();
+  });
+
+  test('timer is not rendered when gameState is complete', async () => {
+    const { puzzle, solution } = makeSolvedPuzzle();
+    mockFetchSuccess({ puzzle, solution });
+
+    render(<SudokuGame />);
+    fireEvent.click(screen.getByText('Easy'));
+
+    await waitFor(() => expect(screen.getAllByRole('textbox').length).toBe(81));
+
+    const inputs = screen.getAllByRole('textbox');
+    fireEvent.change(inputs[0], { target: { value: String(solution[0][0]) } });
+
+    expect(screen.getByText(/congratulations/i)).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+:\d{2}$/)).not.toBeInTheDocument();
+  });
+
+  test('fetching a new puzzle resets the timer to 0:00', async () => {
+    const { puzzle, solution } = makeSolvedPuzzle();
+    mockFetchSuccess({ puzzle, solution });
+
+    render(<SudokuGame />);
+    fireEvent.click(screen.getByText('Easy'));
+
+    await waitFor(() => expect(screen.getAllByRole('textbox').length).toBe(81));
+    act(() => { jest.advanceTimersByTime(10000); });
+    expect(screen.getByText('0:10')).toBeInTheDocument();
+
+    // Complete the puzzle so Play Again is available
+    const inputs = screen.getAllByRole('textbox');
+    fireEvent.change(inputs[0], { target: { value: String(solution[0][0]) } });
+    expect(screen.getByText('Play Again')).toBeInTheDocument();
+
+    mockFetchSuccess({ puzzle, solution });
+    fireEvent.click(screen.getByText('Play Again'));
+
+    await waitFor(() => expect(screen.getAllByRole('textbox').length).toBe(81));
+    expect(screen.getByText('0:00')).toBeInTheDocument();
   });
 });

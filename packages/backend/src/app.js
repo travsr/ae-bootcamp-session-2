@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const { generatePuzzle } = require('./sudoku');
 
 // Initialize express app
 const app = express();
@@ -23,6 +24,14 @@ app.get('/api/hello', (req, res) => {
 // Example: GET /api/status
 app.get('/api/status', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// GET /api/sudoku?difficulty=easy|medium|hard
+app.get('/api/sudoku', (req, res) => {
+  const valid = ['easy', 'medium', 'hard'];
+  const difficulty = valid.includes(req.query.difficulty) ? req.query.difficulty : 'medium';
+  const { puzzle, solution } = generatePuzzle(difficulty);
+  res.json({ puzzle, solution, difficulty });
 });
 
 module.exports = { app };

@@ -6,8 +6,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>AI Bootcamp Capstone</h1>
-        <p>Your project starts here</p>
+        <h1>Sudoku</h1>
+        <p>Test your logic skills!</p>
       </header>
 
       <main>

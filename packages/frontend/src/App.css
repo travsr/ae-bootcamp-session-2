@@ -49,3 +49,15 @@ button:hover {
   color: #d32f2f;
   font-weight: bold;
 }
+
+.difficulty-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+}
+
+.difficulty-selector button.active {
+  background-color: #21a1c9;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}

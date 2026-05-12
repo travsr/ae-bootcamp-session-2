@@ -64,6 +64,52 @@ The project uses npm workspaces to manage the monorepo structure. You can:
 - Run `npm run test:all` to run all tests (unit, integration, and E2E)
 - Work on individual packages by navigating to their directories and using their specific scripts
 
+## Ticket-Driven Development
+
+This project uses a spec-driven development workflow. Features are defined as **tickets** — Markdown files that serve as the source of truth for what needs to be built. The AI agent uses these tickets to implement features autonomously.
+
+### Directory Structure
+
+| Directory | Purpose |
+|---|---|
+| `tickets/todo/` | Tickets ready to be picked up |
+| `tickets/in-progress/` | Tickets currently being implemented |
+| `tickets/complete/` | Tickets that are fully implemented and tested |
+| `tickets/TICKET-TEMPLATE.md` | Master template for new tickets |
+
+A ticket's status is determined **entirely by which directory it lives in** — there is no status field in the file.
+
+### Ticket Format
+
+Each ticket is a Markdown file with YAML frontmatter and four required sections:
+
+```
+---
+id: TICKET-NNN
+title: Short feature title
+created: YYYY-MM-DD
+dependencies: []
+---
+
+## Description
+## Acceptance Criteria
+## Technical Implementation Notes
+## Test Requirements
+```
+
+### Workflow
+
+1. **Create a ticket** using the `/create-ticket` prompt — provide a high-level requirement and the agent generates a fully-specified ticket in `tickets/todo/`.
+2. **Implement a ticket** using the `/implement-ticket` prompt — provide a ticket ID and the agent implements the full spec, writes tests, runs the suite, and moves the ticket to `tickets/complete/`.
+
+### Naming Convention
+
+```
+TICKET-NNN-short-slug.md
+```
+
+The `NNN` number is unique across all three directories and is auto-assigned at creation time.
+
 ## Deployment
 
 General Guidelines, Code Style and Testing Practices will be covered in the bootcamp sessions.

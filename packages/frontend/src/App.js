@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import SudokuGame from './components/SudokuGame';
 
 function App() {
   return (
@@ -10,10 +11,7 @@ function App() {
       </header>
 
       <main>
-        <section className="welcome-section">
-          <h2>Welcome</h2>
-          <p>This is your clean starting point. Start building your capstone project!</p>
-        </section>
+        <SudokuGame />
       </main>
     </div>
   );

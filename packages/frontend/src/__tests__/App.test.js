@@ -2,6 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
 
+jest.mock('../components/SudokuGame', () => () => <div data-testid="sudoku-game" />);
+
 describe('App Component', () => {
   test('renders the header', () => {
     render(<App />);
@@ -9,9 +11,8 @@ describe('App Component', () => {
     expect(screen.getByText('Your project starts here')).toBeInTheDocument();
   });
 
-  test('renders the welcome section', () => {
+  test('renders SudokuGame as main content', () => {
     render(<App />);
-    expect(screen.getByText('Welcome')).toBeInTheDocument();
-    expect(screen.getByText(/clean starting point/i)).toBeInTheDocument();
+    expect(screen.getByTestId('sudoku-game')).toBeInTheDocument();
   });
 });
